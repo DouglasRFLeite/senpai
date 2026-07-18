@@ -1,0 +1,728 @@
+/*
+ * Lesson & reference pages — the "Field Log" reading template, app-rendered.
+ * The lesson is a paper sheet full-bleed on the desk: a collapsible TOC spine,
+ * the reading column, and a floating dark control pill. The sheet is a platform
+ * surface (--paper/--ink follow the app theme), so it reads walnut in dark and
+ * parchment in light. Reference pages still use the simpler .page.
+ */
+
+.page,
+.sheet {
+  --muted: color-mix(in srgb, var(--ink) 62%, var(--paper));
+  --rule: color-mix(in srgb, var(--ink) 14%, transparent);
+  --code-bg: #1c2430;
+  --code-ink: #e6e9f0;
+  --warn-bg: color-mix(in srgb, var(--warn) 14%, var(--paper));
+  --win-bg: color-mix(in srgb, var(--ok) 12%, var(--paper));
+}
+
+/* ---- Lesson layout ---- */
+
+.desk {
+  padding: 1.6rem;
+  display: flex;
+  justify-content: center;
+  background: var(--lesson-desk);
+}
+
+.sheet {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: 980px;
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  min-height: 660px;
+}
+
+/* ---- TOC spine (open) ---- */
+
+.toc {
+  width: 212px;
+  flex: none;
+  background: color-mix(in srgb, var(--ink) 6%, var(--paper));
+  border-right: 1px solid var(--rule);
+  padding: 1.3rem 1rem;
+  font-family: var(--font-body);
+}
+
+.tocTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tocBack {
+  font-family: var(--font-label);
+  font-size: 0.74rem;
+  color: var(--accent);
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tocBack:hover,
+.tocBack:focus-visible {
+  text-decoration: underline;
+}
+
+.tocBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--accent);
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0;
+}
+
+.tocBar {
+  height: 4px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  overflow: hidden;
+}
+
+.tocBarFill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.4s ease;
+}
+
+.tocMeta {
+  font-family: var(--font-label);
+  font-size: 0.62rem;
+  color: color-mix(in srgb, var(--ink) 55%, transparent);
+  margin: 0.35rem 0 1.1rem;
+}
+
+.tocList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+}
+
+.tocRow {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.42rem 0.45rem;
+  border-radius: 5px;
+  border-left: 3px solid transparent;
+  color: color-mix(in srgb, var(--ink) 85%, transparent);
+  font-size: 0.83rem;
+  text-decoration: none;
+}
+
+.tocRow:hover,
+.tocRow:focus-visible {
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+}
+
+.tocN {
+  font-family: var(--font-label);
+  font-size: 0.68rem;
+  color: color-mix(in srgb, var(--ink) 45%, transparent);
+  width: 1.3rem;
+  flex: none;
+}
+
+.tocRowTitle {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tocRowDone {
+  color: color-mix(in srgb, var(--ink) 60%, transparent);
+}
+
+.tocCheck {
+  margin-left: auto;
+  color: var(--ok);
+  font-size: 0.78rem;
+}
+
+.tocRowCurrent {
+  background: var(--paper);
+  color: var(--ink);
+  font-weight: 600;
+  border-left-color: var(--accent);
+}
+
+.tocRowCurrent:hover,
+.tocRowCurrent:focus-visible {
+  background: var(--paper);
+}
+
+.tocRowCurrent .tocN {
+  color: var(--accent);
+}
+
+/* ---- TOC spine (collapsed dot rail) ---- */
+
+.tocRail {
+  width: 60px;
+  flex: none;
+  background: color-mix(in srgb, var(--ink) 6%, var(--paper));
+  border-right: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.3rem 0;
+  gap: 0.85rem;
+}
+
+.railDivider {
+  width: 1px;
+  height: 0.6rem;
+  flex: none;
+  background: color-mix(in srgb, var(--ink) 15%, transparent);
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  flex: none;
+  border-radius: 50%;
+  border: 1.5px solid color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+.dotDone {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.dotCurrent {
+  width: 14px;
+  height: 14px;
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+.railLabel {
+  margin-top: auto;
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  color: var(--accent);
+  writing-mode: vertical-rl;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 720px) {
+  .toc,
+  .tocRail {
+    display: none;
+  }
+}
+
+/* ---- Reading column (constant course paper) ---- */
+
+.reading {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+  padding: 2.8rem 2rem 5rem;
+}
+
+.article {
+  width: 100%;
+  max-width: 560px;
+  font-family: var(--font-read);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+/* ---- Reference pages: one paper sheet, simple centered column ---- */
+
+.page {
+  max-width: 44rem;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 6rem;
+  font-family: var(--font-read);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--ink);
+  background: var(--paper);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 2.2rem;
+  font-family: var(--font-label);
+  font-size: 0.85rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+.back:hover,
+.back:focus-visible {
+  text-decoration: underline;
+}
+
+.kicker {
+  font-family: var(--font-label);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ink) 55%, transparent);
+  margin: 0 0 0.9rem;
+}
+.kickerN,
+.kicker .n {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 1.05;
+  letter-spacing: 0.002em;
+  color: var(--accent);
+  margin: 0 0 1.2rem;
+}
+
+/* --- Prose (rendered markdown) --- */
+.doc :global(h2) {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: 0.005em;
+  margin-top: 2rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink);
+}
+.doc :global(h3) {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1.02rem;
+  margin-top: 1.9rem;
+}
+.doc :global(p),
+.doc :global(li) {
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+.doc :global(strong) {
+  color: var(--ink);
+}
+.doc :global(a) {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+.doc :global(code) {
+  font-family: var(--font-label);
+  font-size: 0.86em;
+  background: var(--accent-soft);
+  color: color-mix(in srgb, var(--accent) 75%, var(--ink));
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+.doc :global(pre) {
+  background: var(--code-bg);
+  color: var(--code-ink);
+  padding: 1rem 1.2rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  line-height: 1.55;
+  font-size: 0.82rem;
+  font-family: var(--font-label);
+}
+.doc :global(pre code) {
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+}
+.doc :global(blockquote) {
+  margin: 1.4rem 0;
+  padding: 0.2rem 0 0.2rem 1.1rem;
+  border-left: 3px solid var(--rule);
+  color: var(--muted);
+}
+.doc :global(table) {
+  border-collapse: collapse;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  margin: 1.4rem 0;
+}
+.doc :global(th),
+.doc :global(td) {
+  border: 1px solid var(--rule);
+  padding: 0.45rem 0.7rem;
+  text-align: left;
+}
+.doc :global(th) {
+  font-family: var(--font-label);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--accent-soft);
+}
+.doc :global(img) {
+  max-width: 100%;
+}
+
+.codeFigure {
+  margin: 1.5rem 0;
+}
+.filename {
+  font-family: var(--font-label);
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.03em;
+  margin-bottom: 0.3rem;
+}
+.codeFigure :global(pre) {
+  margin: 0;
+}
+
+/* --- Callouts --- */
+.callout {
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  line-height: 1.55;
+}
+.callout > :global(p:first-of-type) {
+  margin-top: 0;
+}
+.callout > :global(p:last-child) {
+  margin-bottom: 0;
+}
+.callout[data-kind='note'] {
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent);
+}
+.callout[data-kind='warn'] {
+  background: var(--warn-bg);
+  border-left: 3px solid var(--warn);
+}
+.callout[data-kind='win'] {
+  background: var(--win-bg);
+  border-left: 3px solid var(--ok);
+}
+.calloutTitle {
+  font-family: var(--font-label);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.3rem;
+  color: var(--accent);
+}
+.callout[data-kind='warn'] .calloutTitle {
+  color: var(--warn);
+}
+.callout[data-kind='win'] .calloutTitle {
+  color: var(--ok);
+}
+
+/* --- Jargon --- */
+.jargon {
+  margin: 1.6rem 0;
+  font-family: var(--font-body);
+}
+.jargon dt {
+  font-weight: 600;
+  margin-top: 0.9rem;
+  color: var(--ink);
+}
+.jargon dd {
+  margin-left: 0;
+  color: var(--muted);
+  font-size: 0.96rem;
+}
+
+/* --- Primary source --- */
+.source {
+  margin: 2.2rem 0;
+  padding: 1rem 1.2rem;
+  border: 1px dashed color-mix(in srgb, var(--accent) 55%, transparent);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--accent-soft) 55%, var(--paper));
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+}
+.source > :global(p) {
+  margin: 0.4rem 0 0;
+}
+.sourceTitle {
+  font-family: var(--font-label);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* --- Quiz & ordering widgets --- */
+.quiz {
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  border-radius: 8px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.8rem 0;
+  background: var(--field);
+}
+.quizPrompt {
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+.quizPrompt :global(p) {
+  margin: 0 0 0.6rem;
+}
+.quizOption {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  margin: 0.4rem 0;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--rule));
+  border-radius: 6px;
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+.quizOption:hover:not(:disabled) {
+  background: var(--accent-soft);
+}
+.quizOption:disabled {
+  cursor: default;
+}
+.quizOption:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.quizOption[data-state='correct'] {
+  background: color-mix(in srgb, var(--ok) 12%, var(--paper));
+  border-color: color-mix(in srgb, var(--ok) 55%, transparent);
+  color: var(--ok);
+}
+.quizOption[data-state='wrong'] {
+  background: color-mix(in srgb, var(--no) 12%, var(--paper));
+  border-color: color-mix(in srgb, var(--no) 55%, transparent);
+  color: var(--no);
+}
+.quizOption[data-state='locked'] {
+  background: color-mix(in srgb, var(--ok) 12%, var(--paper));
+  border-color: color-mix(in srgb, var(--ok) 55%, transparent);
+  color: var(--ok);
+}
+.rank {
+  font-family: var(--font-label);
+  font-weight: 600;
+}
+.feedback {
+  margin: 0.7rem 0 0;
+  font-size: 0.9rem;
+  min-height: 1.2em;
+  font-family: var(--font-body);
+}
+.feedback[data-tone='ok'] {
+  color: var(--ok);
+}
+.feedback[data-tone='no'] {
+  color: var(--no);
+}
+@media (prefers-reduced-motion: reduce) {
+  .quizOption {
+    transition: none;
+  }
+}
+
+/* --- Chrome under the lesson body --- */
+.completed {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.8rem;
+  font-family: var(--font-label);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.teacherNudge {
+  font-family: var(--font-body);
+  font-style: italic;
+  color: var(--muted);
+  margin-top: 2rem;
+  font-size: 0.95rem;
+}
+
+.related {
+  margin-top: 2.6rem;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  font-family: var(--font-label);
+  font-size: 0.82rem;
+}
+.relatedTitle {
+  display: block;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+}
+.related a {
+  display: block;
+  color: var(--accent);
+  text-decoration: none;
+  margin: 0.2rem 0;
+}
+.related a:hover {
+  text-decoration: underline;
+}
+
+.lessonLinks {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--font-label);
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--muted);
+}
+.lessonLinks a {
+  text-decoration: none;
+  color: var(--accent);
+}
+.lessonLinks a:hover {
+  text-decoration: underline;
+}
+
+/* ---- Floating control — always dark for contrast; brass = desk hardware ---- */
+
+.pill {
+  position: absolute;
+  left: 50%;
+  bottom: 1.4rem;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #1b1712;
+  border: 1px solid rgba(243, 237, 224, 0.14);
+  border-radius: 999px;
+  padding: 0.5rem 0.6rem 0.5rem 1.2rem;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
+  z-index: 5;
+}
+
+.pillPos {
+  font-family: var(--font-label);
+  font-size: 0.72rem;
+  color: #a89c81;
+  white-space: nowrap;
+}
+
+.pillBar {
+  width: 110px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(243, 237, 224, 0.14);
+  overflow: hidden;
+}
+
+.pillBarFill {
+  display: block;
+  height: 100%;
+  background: #c2963f;
+  transition: width 0.4s ease;
+}
+
+.pillPrev {
+  font-family: var(--font-label);
+  font-size: 0.78rem;
+  color: #a89c81;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.pillPrev:hover,
+.pillPrev:focus-visible {
+  color: #ece4d1;
+}
+
+.pillDone {
+  background: #c2963f;
+  color: #1b1712;
+  border: none;
+  border-radius: 999px;
+  padding: 0.45rem 1.1rem;
+  font-family: var(--font-label);
+  font-size: 0.78rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.pillDone:disabled {
+  opacity: 0.75;
+  cursor: default;
+}
+
+@media (max-width: 560px) {
+  .pillBar {
+    display: none;
+  }
+}
+
+/* --- Print (references print well) --- */
+@media print {
+  .page,
+  .sheet {
+    max-width: none;
+    min-height: 0;
+    color: #000;
+    background: #fff;
+    box-shadow: none;
+  }
+  .doc :global(pre) {
+    background: #f4f4f4;
+    color: #000;
+    border: 1px solid #ccc;
+  }
+  .back,
+  .toc,
+  .tocRail,
+  .pill,
+  .quiz button,
+  .teacherNudge,
+  .lessonLinks {
+    display: none;
+  }
+  .doc :global(a) {
+    color: #000;
+    text-decoration: underline;
+  }
+}

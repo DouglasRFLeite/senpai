@@ -1,0 +1,182 @@
+{
+  "home": {
+    "eyebrow": "Personal learning OS",
+    "title": "Senpai",
+    "empty": "No courses yet — teach one with /design-course.",
+    "greetingMorning": "Good morning",
+    "greetingAfternoon": "Good afternoon",
+    "greetingEvening": "Good evening",
+    "resumeKicker": "Pick up here",
+    "resume": "Resume ▶",
+    "streak": "{count, plural, one {day streak} other {days streak}}",
+    "weeklyGoal": "Weekly goal",
+    "goalProgress": "{done} of {target} {kind}",
+    "setGoal": "Set a weekly goal →",
+    "yourCourses": "Your courses",
+    "next": "next",
+    "xp": "XP earned",
+    "lessons": "{done}/{total} lessons"
+  },
+  "course": {
+    "back": "Home",
+    "kicker": "Course",
+    "lessonsLabel": "Lessons",
+    "lessonsOf": "{done} / {total} lessons",
+    "continue": "Continue",
+    "progress": "{pct}% complete · {done}/{total} lessons · {xp} XP",
+    "references": "References — links, docs & endpoints ↗"
+  },
+  "resources": {
+    "kicker": "References"
+  },
+  "lesson": {
+    "lessonN": "Lesson {n}",
+    "referenceKicker": "Reference",
+    "quizCorrect": "✓ Correct.",
+    "quizRetry": "✗ Not quite — try again.",
+    "quizRevealed": "✗ The correct answer is highlighted.",
+    "orderingNext": "✓ Right — what happens next?",
+    "orderingDone": "✓ Perfect — that's the whole sequence.",
+    "orderingWrong": "✗ Not next — think about what has to come first.",
+    "sourceTitle": "Primary source · read this next",
+    "completed": "Lesson completed",
+    "markDone": "Mark done ✓",
+    "tocProgress": "{done} of {total}",
+    "collapseToc": "Collapse contents",
+    "expandToc": "Expand contents",
+    "teacherNudge": "I'm your teacher — bring me your hard “but why” questions. Export your progress on the course page and paste it into /teach.",
+    "related": "Related",
+    "prev": "Prev",
+    "next": "Next"
+  },
+  "nav": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "search": "Jump to anything…",
+    "themeToggle": "Toggle theme",
+    "themeLight": "Light",
+    "themeDark": "Dark"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "loading": "Loading…",
+    "xp": "XP earned",
+    "dayStreak": "Day streak",
+    "accuracy": "Accuracy",
+    "questions": "Questions",
+    "weeklyGoalTile": "Weekly goal",
+    "accuracyByCourse": "Accuracy by course",
+    "less": "Less",
+    "more": "More",
+    "currentStreak": "current streak",
+    "longestStreak": "longest streak",
+    "activity": "Activity · last 12 months",
+    "activityCount": "{count, plural, one {# activity} other {# activities}}",
+    "weeklyGoal": "This week's goal",
+    "goalLabel": "{progress} of {target}",
+    "goalKind": {
+      "lessons": "lessons",
+      "questions": "questions"
+    },
+    "noGoal": "No goal set for this week.",
+    "setGoal": "Set a goal",
+    "editGoal": "Edit goal",
+    "save": "Save",
+    "badges": "Seals earned",
+    "earnedOn": "Earned {date}",
+    "badge": {
+      "first_lesson": {
+        "name": "First Lesson",
+        "description": "Complete your first lesson"
+      },
+      "first_exam": {
+        "name": "First Exam",
+        "description": "Finish your first full Exam"
+      },
+      "perfect_exam": {
+        "name": "Perfect Exam",
+        "description": "Finish an Exam of 10+ questions with everything right"
+      },
+      "streak_7": {
+        "name": "7-Day Streak",
+        "description": "Study 7 days in a row"
+      },
+      "streak_30": {
+        "name": "30-Day Streak",
+        "description": "Study 30 days in a row"
+      },
+      "centurion": {
+        "name": "Centurion",
+        "description": "Answer 100 questions"
+      },
+      "scholar": {
+        "name": "Scholar",
+        "description": "Complete every lesson of a course"
+      },
+      "marksman": {
+        "name": "Marksman",
+        "description": "90% accuracy on a topic over 10+ answers"
+      }
+    },
+    "recentSessions": "Recent sessions",
+    "kind": {
+      "exam": "Exam",
+      "practice": "Practice",
+      "topic": "Topic"
+    },
+    "abandoned": "abandoned"
+  },
+  "session": {
+    "practiceTitle": "Practice",
+    "exam": "Exam",
+    "examHint": "The whole bank — {mc} MC, then {open} open questions",
+    "practice": "Quick Practice",
+    "practiceHint": "A few random questions, mixed",
+    "topic": "Topic Drill",
+    "topicHint": "{count, plural, one {# topic} other {# topics}}",
+    "questions": "{count} questions",
+    "abandon": "Leave session",
+    "openPlaceholder": "Write your answer…",
+    "submit": "Submit",
+    "grading": "Grading…",
+    "graderDown": "The grader is offline — assess yourself against the model answer.",
+    "modelAnswer": "Model answer",
+    "selfAssessAsk": "Which criteria did your answer cover?",
+    "confirm": "Confirm",
+    "correct": "✔ Correct",
+    "incorrect": "✘ Incorrect",
+    "openScore": "Score {score}%",
+    "passed": "passed",
+    "failed": "not passed",
+    "selfAssessed": "self-assessed",
+    "next": "Next",
+    "seeResults": "See results",
+    "resultsTitle": "Session results",
+    "mcTotals": "{correct}/{total} multiple choice",
+    "openTotals": "{passed}/{total} open questions",
+    "struggleSpots": "Struggle spots",
+    "yourAnswer": "Your answer",
+    "correctAnswer": "Correct answer",
+    "done": "Done"
+  },
+  "export": {
+    "kicker": "Export progress",
+    "commentPlaceholder": "Anything to tell your teacher? (optional)",
+    "copy": "Copy report",
+    "copied": "Copied ✓",
+    "download": "Download .md",
+    "downloaded": "Downloaded ✓",
+    "hint": "Paste it into Claude Code and run /teach — it reads your progress to pick what's next."
+  },
+  "userPicker": {
+    "title": "Who is studying?",
+    "subtitle": "Tap your name — your progress stays yours.",
+    "or": "or",
+    "placeholder": "I'm new here — my name",
+    "start": "Start",
+    "switch": "Switch Learner"
+  },
+  "language": {
+    "label": "Language"
+  }
+}

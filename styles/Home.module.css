@@ -1,0 +1,324 @@
+/* Home — today's desk: date, greeting, resume band, streak ribbon, shelf. */
+
+.page {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 2.2rem 1.5rem 3rem;
+  font-family: var(--font-body);
+}
+
+.dateKicker {
+  font-family: var(--font-label);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.4rem;
+  min-height: 1em;
+}
+
+.greeting {
+  margin: 0 0 1.4rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.empty {
+  font-family: var(--font-label);
+  font-size: 0.95rem;
+  color: var(--dim);
+}
+
+/* ---- resume band ---- */
+
+.resume {
+  display: block;
+  width: 100%;
+  text-align: left;
+  text-decoration: none;
+  background: var(--card);
+  border: 1px solid var(--card-line);
+  border-radius: 11px;
+  padding: 1.5rem 1.6rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 1.4rem;
+}
+
+.resume:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.resumeKicker {
+  display: block;
+  font-family: var(--font-label);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.4rem;
+}
+
+.resumeTitle {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.95rem;
+  line-height: 1.05;
+  color: var(--text);
+}
+
+.resumeDesc {
+  display: block;
+  font-family: var(--font-read);
+  font-size: 0.98rem;
+  color: var(--dim);
+  margin-top: 0.2rem;
+}
+
+.resumeRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.resumeButton {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  font-family: var(--font-label);
+  font-size: 0.8rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.bar {
+  flex: 1;
+  display: block;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--track);
+  overflow: hidden;
+}
+
+.barFill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+  transition: width 0.4s ease;
+}
+
+/* ---- today ribbon ---- */
+
+.ribbon {
+  display: flex;
+  align-items: center;
+  gap: 1.3rem;
+  background: var(--raised);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 1rem 1.3rem;
+  margin-bottom: 2rem;
+}
+
+.streak {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.streakN {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 2.5rem;
+  line-height: 0.85;
+  color: var(--accent);
+}
+
+.streakLabel {
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dim);
+  max-width: 4rem;
+}
+
+.ribbonDivider {
+  width: 1px;
+  align-self: stretch;
+  background: var(--line);
+}
+
+.donut {
+  flex: none;
+}
+
+.donutText {
+  font-family: var(--font-display);
+  font-size: 24px;
+  fill: var(--text);
+}
+
+.goalText {
+  font-family: var(--font-label);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  color: var(--dim);
+  line-height: 1.6;
+}
+
+.goalText span {
+  color: var(--text);
+}
+
+.setGoal {
+  font-family: var(--font-label);
+  font-size: 0.72rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.setGoal:hover {
+  text-decoration: underline;
+}
+
+.miniHeat {
+  margin-left: auto;
+  display: flex;
+  gap: 2px;
+  flex-wrap: wrap;
+  width: 112px;
+}
+
+.miniCell {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+}
+
+.miniCell[data-level='0'] { background: var(--heat-empty); border: 1px solid var(--heat-line); }
+.miniCell[data-level='1'] { background: color-mix(in srgb, var(--accent) 42%, var(--heat-empty)); }
+.miniCell[data-level='2'] { background: color-mix(in srgb, var(--accent) 68%, var(--heat-empty)); }
+.miniCell[data-level='3'] { background: var(--accent); }
+
+@media (max-width: 560px) {
+  .ribbon {
+    flex-wrap: wrap;
+  }
+  .miniHeat {
+    margin-left: 0;
+  }
+}
+
+/* ---- course shelf ---- */
+
+.shelfLabel {
+  font-family: var(--font-label);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 0.9rem;
+}
+
+.shelf {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.card {
+  display: flex;
+  width: 100%;
+  text-align: left;
+  text-decoration: none;
+  background: var(--card);
+  border: 1px solid var(--card-line);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+}
+
+.card:hover .cardTitle,
+.card:focus-visible .cardTitle {
+  color: var(--accent);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Desk hardware: the spine is the PLATFORM accent, never the course's own. */
+.cardSpine {
+  width: 5px;
+  flex: none;
+  background: var(--accent);
+}
+
+.cardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  flex: none;
+  background: var(--icon-bg);
+  color: var(--accent);
+}
+
+.cardBody {
+  flex: 1;
+  min-width: 0;
+  padding: 0.9rem 1.1rem;
+}
+
+.cardTitleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.8rem;
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--text);
+}
+
+.cardPct {
+  font-family: var(--font-label);
+  font-size: 0.68rem;
+  color: var(--accent);
+}
+
+.cardMeta {
+  display: block;
+  font-family: var(--font-label);
+  font-size: 0.68rem;
+  color: var(--dim);
+  margin: 0.3rem 0 0.55rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cardBar {
+  display: block;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--track);
+  overflow: hidden;
+}

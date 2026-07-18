@@ -1,0 +1,51 @@
+.stamp {
+  /* A stamp's ink always sits on its own small paper disc — kept opaque and
+     light on purpose so the mark stays legible whether the card around it is
+     a course's light page (Home, Course) or the dark desk (Dashboard). */
+  --stamp-color: var(--stamp-ink);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  color: var(--stamp-color);
+  border: 1.5px solid var(--stamp-color);
+  border-radius: var(--stamp-radius);
+  background: #f1ead9;
+  transform: rotate(var(--stamp-rot));
+}
+
+.stamp::before {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border: 1px solid currentColor;
+  border-radius: inherit;
+  opacity: 0.55;
+}
+
+.stamp.dim {
+  /* Locked/unearned: a dashed outline where a seal could go — no ink yet. */
+  --stamp-color: currentColor;
+  color: var(--faint, #7c7460);
+  border-color: var(--line, rgba(243, 237, 224, 0.12));
+  border-style: dashed;
+  border-radius: 50%;
+  background: transparent;
+  transform: none;
+}
+
+.stamp.dim::before {
+  display: none;
+}
+
+.stamp.dim .mark {
+  transform: none;
+}
+
+.mark {
+  transform: rotate(calc(var(--stamp-rot) * -1));
+  line-height: 1;
+  font-family: var(--font-label);
+  font-weight: 600;
+}

@@ -1,0 +1,31 @@
+{
+  "name": "senpai",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "vitest run",
+    "validate": "vitest run && tsc --noEmit && next build",
+    "eval-grader": "node scripts/eval-grader.ts"
+  },
+  "dependencies": {
+    "next": "^16.2.10",
+    "next-intl": "^4.13.1",
+    "pg": "^8.22.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.0",
+    "@types/pg": "^8.20.0",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.10"
+  }
+}

@@ -1,0 +1,382 @@
+/*
+ * Senpai shell — "Field Log": the app is a working notebook kept on a desk.
+ * Everything is themeable: walnut + brass in dark, warm parchment in light.
+ * A Course/Lesson page is a sheet of paper resting on the desk; the paper is a
+ * platform surface (--paper/--ink alias the theme's card tones), so every
+ * course reads in the platform palette in both themes. Completed work gets a
+ * hand-stamped ink mark (see components/Stamp.tsx) — the one signature flourish.
+ */
+:root {
+  /* the desk — dark (default) */
+  --desk: #1b1712;
+  --raised: #241f16;
+  --bar: rgba(31, 26, 19, 0.85);
+  --line: rgba(243, 237, 224, 0.12);
+  --card-line: rgba(243, 237, 224, 0.1);
+  --text: #ece4d1;
+  --dim: #a89c81;
+  --faint: #7c7460;
+  --accent: #c2963f;
+  --accent-contrast: #1b1712;
+  --accent-soft: rgba(194, 150, 63, 0.16);
+  --field: #221d15;
+  --radial: rgba(194, 150, 63, 0.1);
+  --grain: rgba(255, 255, 255, 0.012);
+  --card: #241f16;
+  --icon-bg: rgba(194, 150, 63, 0.12);
+  --track: rgba(194, 150, 63, 0.16);
+  --heat-empty: #252017;
+  --heat-line: rgba(243, 237, 224, 0.12);
+  --shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+  --card-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  --lesson-desk: #1b1712;
+
+  /* the stamp — reserved for completion/achievement marks only; the mark
+     always sits on the stamp's own light disc, so one ink serves both themes */
+  --stamp-ink: #375069;
+  --stamp-ink-soft: rgba(55, 80, 105, 0.14);
+
+  /* status inks — quiz feedback and callouts, readable on this theme's paper */
+  --ok: #55b184;
+  --no: #dd7a70;
+  --warn: #cfa04a;
+
+  /* the paper — course sheets are platform surfaces, following the theme */
+  --paper: var(--card);
+  --ink: var(--text);
+
+  /* legacy aliases (pre-redesign names still used by Session/Stamp styles) */
+  --desk-raised: var(--raised);
+  --desk-line: var(--line);
+  --bone: var(--text);
+  --bone-dim: var(--dim);
+  --brass: var(--accent);
+  --brass-soft: var(--accent-soft);
+}
+
+[data-theme='light'] {
+  --desk: #e7dcc4;
+  --raised: #eee2c9;
+  --bar: rgba(235, 223, 198, 0.9);
+  --line: rgba(43, 32, 19, 0.14);
+  --card-line: rgba(43, 32, 19, 0.12);
+  --text: #2b2013;
+  --dim: #5a4a33;
+  --faint: #8a7a5e;
+  --accent: #8a4b2d;
+  --accent-contrast: #f6efe0;
+  --accent-soft: rgba(138, 75, 45, 0.16);
+  --field: #f4ecdb;
+  --radial: rgba(138, 75, 45, 0.08);
+  --grain: rgba(43, 32, 19, 0.02);
+  --card: #f6efe0;
+  --icon-bg: #ece0c8;
+  --track: rgba(138, 75, 45, 0.18);
+  --heat-empty: rgba(43, 32, 19, 0.06);
+  --heat-line: rgba(43, 32, 19, 0.14);
+  --shadow: 0 16px 36px rgba(43, 32, 19, 0.2);
+  --card-shadow: 0 6px 16px rgba(43, 32, 19, 0.12);
+  --lesson-desk: #e7dcc4;
+  --ok: #176d43;
+  --no: #a3231d;
+  --warn: #96691c;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--desk);
+  background-image:
+    radial-gradient(ellipse at 50% -10%, var(--radial), transparent 55%),
+    repeating-linear-gradient(180deg, var(--grain) 0, var(--grain) 1px, transparent 1px, transparent 3px);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* Theme toggle animates every themed surface together. Class selectors that
+   declare their own transitions (bar fills, hover lifts) still win. */
+@media (prefers-reduced-motion: no-preference) {
+  body,
+  body * {
+    transition: background-color 0.28s ease, color 0.28s ease, border-color 0.28s ease,
+      box-shadow 0.28s ease;
+  }
+}
+
+a {
+  color: inherit;
+}
+
+/* ---- Top bar (persistent chrome, all desk screens) ---- */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 0.85rem 1.6rem;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--bar);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.site-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.site-name-rivet {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.site-nav {
+  display: flex;
+  gap: 0.3rem;
+  margin-left: 0.4rem;
+}
+
+.site-nav-link {
+  text-decoration: none;
+  font-family: var(--font-label);
+  font-size: 0.8rem;
+  color: var(--dim);
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+}
+
+.site-nav-link:hover,
+.site-nav-link:focus-visible {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+.site-search {
+  flex: 1;
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--field);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.5rem 0.85rem;
+  color: var(--faint);
+  font-size: 0.85rem;
+}
+
+.site-search kbd {
+  margin-left: auto;
+  font-family: var(--font-label);
+  font-size: 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0.1rem 0.35rem;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--field);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.36rem 0.8rem;
+  color: var(--text);
+  font-family: var(--font-label);
+  font-size: 0.76rem;
+  cursor: pointer;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  border-color: var(--accent);
+}
+
+.site-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+@media (max-width: 860px) {
+  .site-search {
+    display: none;
+  }
+}
+
+.language-switcher {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.language-switcher button {
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.25rem 0.65rem;
+  cursor: pointer;
+  color: var(--dim);
+  font-family: var(--font-label);
+  font-size: 0.74rem;
+}
+
+.language-switcher button:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.language-switcher button.active {
+  font-weight: 600;
+  color: var(--accent-contrast);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ---- Learner identity (picker overlay + header chip) ---- */
+
+.user-chip {
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.36rem 0.85rem;
+  cursor: pointer;
+  color: var(--dim);
+  font-family: var(--font-label);
+  font-size: 0.76rem;
+}
+
+.user-chip:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.user-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 8, 5, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 100;
+}
+
+.user-modal {
+  background: var(--raised);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 2.1rem 1.85rem;
+  width: min(26rem, 100%);
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.user-modal h2 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin: 0 0 0.5rem;
+}
+
+.user-modal p {
+  margin: 0 0 1.25rem;
+  color: var(--dim);
+}
+
+.user-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.user-pick {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+  border-radius: 999px;
+  padding: 0.5rem 1.2rem;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.user-pick:hover {
+  border-color: var(--accent);
+}
+
+.user-divider {
+  margin: 1rem 0;
+  color: var(--dim);
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.user-new {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.user-new input {
+  flex: 1;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-size: 1rem;
+  background: var(--field);
+  color: var(--text);
+}
+
+.user-new input::placeholder {
+  color: var(--faint);
+}
+
+.user-start {
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  padding: 0.6rem 1.1rem;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.user-start:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

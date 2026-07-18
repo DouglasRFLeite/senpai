@@ -1,0 +1,52 @@
+# Dev environment for Senpai
+# Usage:
+#   docker compose up -d
+#   docker compose exec dev claude --dangerously-skip-permissions
+#   docker compose exec dev bash
+#   docker compose down
+#
+# Postgres is bundled: the `db` service below, reached from `dev` at
+# host `db` via the preset DATABASE_URL.
+
+services:
+  dev:
+    container_name: senpai-dev
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/app
+      - dev_node_modules:/app/node_modules
+      - ~/.claude/.credentials.json:/home/ubuntu/.claude/.credentials.json
+      - ~/.gitconfig:/home/ubuntu/.gitconfig:ro
+    ports:
+      - "${APP_PORT:-3003}:3000"
+    environment:
+      - DATABASE_URL=postgres://senpai:senpai@db:5432/senpai
+      - GH_TOKEN=${GH_TOKEN:-}
+    depends_on:
+      db:
+        condition: service_healthy
+    tty: true
+    stdin_open: true
+
+  db:
+    container_name: senpai-db
+    image: postgres:16
+    environment:
+      POSTGRES_USER: senpai
+      POSTGRES_PASSWORD: senpai
+      POSTGRES_DB: senpai
+    volumes:
+      - dev_pgdata:/var/lib/postgresql/data
+    ports:
+      - "${POSTGRES_PORT:-5433}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U senpai -d senpai"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  dev_node_modules:
+  dev_pgdata:

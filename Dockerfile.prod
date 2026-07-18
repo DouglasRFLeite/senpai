@@ -1,0 +1,24 @@
+FROM node:22-alpine AS builder
+WORKDIR /app
+# npm workspaces: every workspace manifest must be present at `npm ci` time
+# or the node_modules/teachdown link is never created (source lands with COPY).
+COPY package*.json ./
+COPY packages/teachdown/package.json packages/teachdown/
+RUN npm ci
+COPY . .
+RUN npm run build
+
+FROM node:22-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+ENV PORT=3000
+
+# Next.js standalone output — adjust if your next.config.* doesn't set `output: 'standalone'`.
+# Courses ship inside the image via public/ — a deploy IS the course sync.
+COPY --from=builder --chown=node:node /app/.next/standalone ./
+COPY --from=builder --chown=node:node /app/.next/static ./.next/static
+COPY --from=builder --chown=node:node /app/public ./public
+
+USER node
+EXPOSE 3000
+CMD ["node", "server.js"]

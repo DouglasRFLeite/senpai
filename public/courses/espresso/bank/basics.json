@@ -1,0 +1,47 @@
+{
+  "questions": [
+    {
+      "id": "M01",
+      "type": "mc",
+      "topic": "Brew ratio",
+      "source": "Lesson 0001 — The Brew Ratio",
+      "stem": "You dose 18 g of ground coffee and want a classic 1:2 espresso. What beverage weight should you stop the shot at?",
+      "options": [
+        "27 g in the cup, weighed with the portafilter",
+        "36 g in the cup, weighed on a cup scale",
+        "45 g in the cup, weighed after the crema settles"
+      ],
+      "correctIndex": 1,
+      "explanation": "Ratio is dose to beverage weight: 18 g × 2 = 36 g out. 27 g is a 1:1.5 ristretto pull, and 45 g is a 1:2.5 lungo — both are ratios, just not the classic 1:2 the lesson targets. Always weigh the cup, not the portafilter."
+    },
+    {
+      "id": "M02",
+      "type": "mc",
+      "topic": "Dialing in",
+      "source": "Lesson 0002 — Dialing In a New Bag",
+      "stem": "A fresh bag pulls 18 g → 36 g in 18 seconds and tastes sour. Keeping the dose fixed, what is the single adjustment to make first?",
+      "options": [
+        "Grind finer so the same shot runs closer to 25–30 seconds",
+        "Grind coarser so the same shot runs faster and brighter",
+        "Raise the brew temperature two degrees on the next shot"
+      ],
+      "correctIndex": 0,
+      "explanation": "Fast + sour = under-extraction, and grind size is the first variable you move while dialing in — one change at a time. Coarser makes under-extraction worse, and temperature is a second-order tweak you only reach for after time is in range."
+    },
+    {
+      "id": "A01",
+      "type": "open",
+      "topic": "Dialing in",
+      "source": "Lesson 0002 — Dialing In a New Bag",
+      "stem": "Your 1:2 shot runs in 20 seconds and tastes sour. Explain what is happening in the cup and, keeping the dose fixed, what you would change for the next shot and why.",
+      "modelAnswer": "The shot is under-extracted: it ran too fast, so water did not dissolve enough of the coffee's sweetness, leaving sour acids dominant. The fix is to grind finer while keeping the dose and the 1:2 ratio fixed, which slows the flow toward the 25–30 second range and raises extraction on the next shot.",
+      "criteria": [
+        "Identifies the shot as under-extracted",
+        "Links the sour taste to too little dissolved from the grounds",
+        "Proposes grinding finer as the next single change",
+        "Keeps dose and ratio fixed while adjusting"
+      ],
+      "explanation": "Fast and sour is the classic under-extraction signature; grind is the dialing-in lever, moved one shot at a time."
+    }
+  ]
+}

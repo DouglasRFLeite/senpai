@@ -1,0 +1,182 @@
+{
+  "home": {
+    "eyebrow": "Sistema pessoal de aprendizado",
+    "title": "Senpai",
+    "empty": "Nenhum curso ainda — crie um com /design-course.",
+    "greetingMorning": "Bom dia",
+    "greetingAfternoon": "Boa tarde",
+    "greetingEvening": "Boa noite",
+    "resumeKicker": "Continue daqui",
+    "resume": "Retomar ▶",
+    "streak": "{count, plural, one {dia seguido} other {dias seguidos}}",
+    "weeklyGoal": "Meta semanal",
+    "goalProgress": "{done} de {target} {kind}",
+    "setGoal": "Defina uma meta semanal →",
+    "yourCourses": "Seus cursos",
+    "next": "próxima",
+    "xp": "XP ganho",
+    "lessons": "{done}/{total} lições"
+  },
+  "course": {
+    "back": "Início",
+    "kicker": "Curso",
+    "lessonsLabel": "Lições",
+    "lessonsOf": "{done} / {total} lições",
+    "continue": "Continuar",
+    "progress": "{pct}% completo · {done}/{total} lições · {xp} XP",
+    "references": "Referências — links, docs & endpoints ↗"
+  },
+  "resources": {
+    "kicker": "Referências"
+  },
+  "lesson": {
+    "lessonN": "Lição {n}",
+    "referenceKicker": "Referência",
+    "quizCorrect": "✓ Correto.",
+    "quizRetry": "✗ Quase — tente de novo.",
+    "quizRevealed": "✗ A resposta correta está destacada.",
+    "orderingNext": "✓ Isso — o que vem depois?",
+    "orderingDone": "✓ Perfeito — essa é a sequência completa.",
+    "orderingWrong": "✗ Não é o próximo — pense no que precisa vir antes.",
+    "sourceTitle": "Fonte primária · leia em seguida",
+    "completed": "Lição concluída",
+    "markDone": "Concluir ✓",
+    "tocProgress": "{done} de {total}",
+    "collapseToc": "Recolher sumário",
+    "expandToc": "Expandir sumário",
+    "teacherNudge": "Sou seu professor — traga suas perguntas difíceis de “mas por quê”. Exporte seu progresso na página do curso e cole no /teach.",
+    "related": "Relacionados",
+    "prev": "Anterior",
+    "next": "Próxima"
+  },
+  "nav": {
+    "home": "Início",
+    "dashboard": "Painel",
+    "search": "Buscar qualquer coisa…",
+    "themeToggle": "Alternar tema",
+    "themeLight": "Claro",
+    "themeDark": "Escuro"
+  },
+  "dashboard": {
+    "title": "Painel",
+    "loading": "Carregando…",
+    "xp": "XP ganho",
+    "dayStreak": "Dias seguidos",
+    "accuracy": "Precisão",
+    "questions": "Questões",
+    "weeklyGoalTile": "Meta semanal",
+    "accuracyByCourse": "Precisão por curso",
+    "less": "Menos",
+    "more": "Mais",
+    "currentStreak": "sequência atual",
+    "longestStreak": "maior sequência",
+    "activity": "Atividade · últimos 12 meses",
+    "activityCount": "{count, plural, one {# atividade} other {# atividades}}",
+    "weeklyGoal": "Meta da semana",
+    "goalLabel": "{progress} de {target}",
+    "goalKind": {
+      "lessons": "lições",
+      "questions": "questões"
+    },
+    "noGoal": "Nenhuma meta definida para esta semana.",
+    "setGoal": "Definir meta",
+    "editGoal": "Editar meta",
+    "save": "Salvar",
+    "badges": "Selos conquistados",
+    "earnedOn": "Conquistada em {date}",
+    "badge": {
+      "first_lesson": {
+        "name": "Primeira Lição",
+        "description": "Complete sua primeira lição"
+      },
+      "first_exam": {
+        "name": "Primeiro Simulado",
+        "description": "Termine seu primeiro simulado completo"
+      },
+      "perfect_exam": {
+        "name": "Simulado Perfeito",
+        "description": "Termine um simulado de 10+ questões acertando tudo"
+      },
+      "streak_7": {
+        "name": "7 Dias Seguidos",
+        "description": "Estude 7 dias seguidos"
+      },
+      "streak_30": {
+        "name": "30 Dias Seguidos",
+        "description": "Estude 30 dias seguidos"
+      },
+      "centurion": {
+        "name": "Centurião",
+        "description": "Responda 100 questões"
+      },
+      "scholar": {
+        "name": "Erudito",
+        "description": "Complete todas as lições de um curso"
+      },
+      "marksman": {
+        "name": "Na Mosca",
+        "description": "90% de acerto num tema com 10+ respostas"
+      }
+    },
+    "recentSessions": "Sessões recentes",
+    "kind": {
+      "exam": "Simulado",
+      "practice": "Prática",
+      "topic": "Tema"
+    },
+    "abandoned": "abandonada"
+  },
+  "session": {
+    "practiceTitle": "Praticar",
+    "exam": "Simulado",
+    "examHint": "O banco inteiro — {mc} objetivas, depois {open} dissertativas",
+    "practice": "Prática rápida",
+    "practiceHint": "Algumas questões aleatórias, misturadas",
+    "topic": "Por tema",
+    "topicHint": "{count, plural, one {# tema} other {# temas}}",
+    "questions": "{count} questões",
+    "abandon": "Sair da sessão",
+    "openPlaceholder": "Escreva sua resposta…",
+    "submit": "Enviar",
+    "grading": "Corrigindo…",
+    "graderDown": "O corretor está offline — avalie sua resposta pelo gabarito.",
+    "modelAnswer": "Gabarito",
+    "selfAssessAsk": "Quais critérios a sua resposta cobriu?",
+    "confirm": "Confirmar",
+    "correct": "✔ Correta",
+    "incorrect": "✘ Incorreta",
+    "openScore": "Nota {score}%",
+    "passed": "aprovada",
+    "failed": "não aprovada",
+    "selfAssessed": "autoavaliação",
+    "next": "Próxima",
+    "seeResults": "Ver resultado",
+    "resultsTitle": "Resultado da sessão",
+    "mcTotals": "{correct}/{total} objetivas",
+    "openTotals": "{passed}/{total} dissertativas",
+    "struggleSpots": "Pontos de dificuldade",
+    "yourAnswer": "Sua resposta",
+    "correctAnswer": "Resposta correta",
+    "done": "Concluir"
+  },
+  "export": {
+    "kicker": "Exportar progresso",
+    "commentPlaceholder": "Algo a dizer pro seu professor? (opcional)",
+    "copy": "Copiar relatório",
+    "copied": "Copiado ✓",
+    "download": "Baixar .md",
+    "downloaded": "Baixado ✓",
+    "hint": "Cole no Claude Code e rode /teach — ele lê seu progresso pra escolher o próximo passo."
+  },
+  "userPicker": {
+    "title": "Quem está estudando?",
+    "subtitle": "Toca no seu nome — assim seu progresso fica só seu.",
+    "or": "ou",
+    "placeholder": "Sou novo aqui — meu nome",
+    "start": "Começar",
+    "switch": "Trocar estudante"
+  },
+  "language": {
+    "label": "Idioma"
+  }
+}

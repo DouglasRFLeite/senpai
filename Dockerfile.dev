@@ -1,0 +1,25 @@
+FROM node:22-bookworm
+
+RUN apt-get update && apt-get install -y \
+    jq lsof socat postgresql-client ripgrep git curl ca-certificates openssh-client \
+ && rm -rf /var/lib/apt/lists/*
+
+# GitHub CLI
+RUN GH_VERSION=$(curl -fsSL https://api.github.com/repos/cli/cli/releases/latest | grep '"tag_name"' | head -1 | sed 's/.*"v\([^"]*\)".*/\1/') \
+ && curl -fsSL "https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_amd64.deb" -o /tmp/gh.deb \
+ && dpkg -i /tmp/gh.deb \
+ && rm /tmp/gh.deb
+
+# Claude Code + Codex + pm2 (process manager so agents can restart the dev server without killing the container)
+RUN npm install -g @anthropic-ai/claude-code @openai/codex pm2
+
+# Replace the base image's `node` user (uid 1000) with `ubuntu` so container paths match the compose mounts.
+RUN userdel -r node 2>/dev/null || true \
+ && useradd -m -u 1000 -s /bin/bash ubuntu \
+ && mkdir -p /app /app/node_modules /home/ubuntu/.claude \
+ && chown -R ubuntu:ubuntu /app /home/ubuntu
+
+USER ubuntu
+WORKDIR /app
+
+ENTRYPOINT ["bash", "scripts/docker-entrypoint.sh"]

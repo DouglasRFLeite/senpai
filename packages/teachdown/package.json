@@ -1,0 +1,36 @@
+{
+  "name": "teachdown",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Teachdown: CommonMark/GFM + a fixed directive vocabulary for Senpai lessons. Parser, validator, and headless interactive components.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./react": "./src/react/index.ts"
+  },
+  "scripts": {
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "mdast-util-directive": "^3.1.0",
+    "remark-directive": "^4.0.0",
+    "remark-frontmatter": "^5.0.0",
+    "remark-gfm": "^4.0.1",
+    "remark-parse": "^11.0.0",
+    "unified": "^11.0.5",
+    "yaml": "^2.8.0"
+  },
+  "peerDependencies": {
+    "react": "^19"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.3.0",
+    "@types/mdast": "^4.0.4",
+    "@types/react": "^19.2.17",
+    "jsdom": "^26.1.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.10"
+  }
+}
