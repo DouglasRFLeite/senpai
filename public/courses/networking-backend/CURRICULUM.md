@@ -320,14 +320,11 @@ capstone. Round 2 produced mutual adoption on nearly everything else.
   is teachable; host counts, mask conversion, and subnet splitting are banned
   from banks.
 
-### Open questions for the user
-1. **Practice environment:** run-it-yourself exercises assume a Linux
-   terminal where you can run `tcpdump`, `ss`, `dig`, `openssl s_client`, and
-   `python3 -m http.server` (the dev container works). Confirm this is
-   available — without it, Units 6/9 weaken to interpretation-only.
-2. **Cloud flavor for Unit 12:** AWS terminology as the default (VPC, SG,
-   NACL), with one mapping note for GCP/Azure — or another primary provider?
-3. **Course content language:** lessons/banks in English or pt-BR? (Per-course
-   choice; the deliberation assumed English tool output either way.)
-4. **Length acceptance:** 14 units ≈ 3–3.5 months at 30 min/day. The cut order
-   above is the agreed pressure valve — or should scope be pre-trimmed now?
+### Open questions for the user — ANSWERED 2026-07-19 (see NOTES.md)
+1. **Practice environment:** confirmed — Linux terminal available (dev
+   container); run-it-yourself exercises are in scope for Units 5/6/7/9.
+2. **Cloud flavor for Unit 12:** AWS terminology as default, brief GCP/Azure
+   mapping notes.
+3. **Course content language:** English.
+4. **Length:** 14-unit arc accepted as designed; cut order stays the pressure
+   valve.
