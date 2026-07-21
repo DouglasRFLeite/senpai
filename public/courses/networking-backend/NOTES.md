@@ -17,3 +17,12 @@ Teaching preferences observed:
   a status code is; do explain what the output *proves*.
 - Explicitly asked not to go too deep on layers/protocols — enforce the
   curriculum's depth caps in every lesson.
+
+Environment (2026-07-21, from Unit 2 feedback — see learning-record 0002):
+
+- The dev container was missing `dig`/`ss`/`tcpdump`/`nc`, which broke Unit 2's
+  run-it-yourself steps ("tools did not work as expected"). `Dockerfile.dev` now
+  installs `dnsutils iproute2 tcpdump netcat-openbsd`; **needs a rebuild**
+  (`docker compose build dev`) to take effect.
+- Every tool-first lesson must carry: an install line, the **expected output**,
+  and a no-install fallback (e.g. `getent hosts`). Non-negotiable from here.

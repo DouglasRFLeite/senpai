@@ -47,3 +47,23 @@ reset :: `RST` mid-stream (curl exit `56`). A live connection torn down. → log
 hang :: Connected, but no reply byte returns. App stuck or reply lost. → `curl -w` TTFB.
 resolves-wrong :: Name maps to the wrong IP or none (curl exit `6`). A DNS problem. → `dig` (Unit 3).
 :::
+
+## DNS
+
+The full cheat sheet is [DNS in Anger](/courses/networking-backend/reference/dns).
+
+:::jargon
+Resolver :: The server that answers your DNS queries. Named on the `SERVER:` line of `dig` output — "DNS is fine" is meaningless until you say *which* resolver. *Avoid:* "the DNS", singular, as if there were one.
+Stub resolver :: The local client (libc or `systemd-resolved`) that reads `/etc/resolv.conf` and forwards queries; often `127.0.0.53`.
+Recursive resolver :: The server that walks root → TLD → authoritative and caches the result (your `8.8.8.8` / VPC resolver).
+Authoritative server :: The server that owns the zone and holds the original answer; every cache is quoting it. Listed by the `NS` record.
+A / AAAA record :: Name → IPv4 (`A`) / IPv6 (`AAAA`) address. The end of resolution.
+CNAME :: An alias — "this name *is* that one; look it up instead". Follow the chain to an `A`/`AAAA`.
+NS record :: The authoritative servers for a zone.
+TTL (DNS) :: Seconds an answer may be cached — at the resolver, the stub, *and inside the app process*. *Avoid:* confusing with `curl -w` timing.
+NXDOMAIN :: Authoritative "no such name" — an answer; rules out resolver/network. DNS's `refused`.
+SERVFAIL :: Resolver reached but couldn't complete the lookup (broken upstream, DNSSEC). Rules out "name is simply absent".
+NODATA :: `status: NOERROR` with `ANSWER: 0` — the name exists but has no record of the requested type. Not "resolved".
+Search domain :: A suffix from `resolv.conf` silently appended to short names; the reason a bare name works in one environment and `NXDOMAIN`s in another.
+Split-horizon :: The same name deliberately resolving to different IPs inside vs outside a network.
+:::
