@@ -3,9 +3,9 @@
 ## Knowledge
 
 - [Book: _everything curl_ — Daniel Stenberg](https://everything.curl.dev/)
-  Free book by curl's author; the [Verbose](https://everything.curl.dev/usingcurl/verbose/index.html) chapter decodes `curl -v` line by line. Use for: anything curl shows or does — verbose output, timings, TLS options.
+  Free book by curl's author; the [Verbose](https://everything.curl.dev/usingcurl/verbose/index.html) chapter decodes `curl -v` line by line, and [Exit codes](https://everything.curl.dev/cmdline/exitcode.html) maps `6`/`7`/`28`/`35`/`56` to failure signatures (Unit 2). Use for: anything curl shows or does — verbose output, exit codes, timings, TLS options.
 - [Book: _High Performance Browser Networking_ — Ilya Grigorik (free online)](https://hpbn.co/)
-  Rigorous but readable coverage of latency, TCP, TLS, HTTP/1.1–HTTP/2. Use for: the "why" behind RTT, handshakes, and connection reuse (Units 5, 9, 13).
+  Rigorous but readable coverage of latency, TCP, TLS, HTTP/1.1–HTTP/2; the [Building Blocks of TCP](https://hpbn.co/building-blocks-of-tcp/) chapter covers the handshake and lifecycle at debugging depth (Unit 2). Use for: the "why" behind RTT, handshakes, and connection reuse (Units 2, 5, 9, 13).
 - [Docs: MDN — HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview)
   The reference for HTTP semantics: methods, status codes, headers, caching, CORS. Use for: Units 4, 5, 8 — cite it instead of guessing header behavior.
 - [Article: "A Question of Timing" — Cloudflare blog](https://blog.cloudflare.com/a-question-of-timing/)
