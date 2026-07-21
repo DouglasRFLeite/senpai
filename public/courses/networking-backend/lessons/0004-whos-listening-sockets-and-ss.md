@@ -26,14 +26,23 @@ nobody has connected yet.
 
 ## The 4-tuple
 
-Now run `curl http://127.0.0.1:8000/ >/dev/null &` and, while it's live, run
-`ss -tnp` — drop the `l` to show connections instead of listeners:
+A `curl` to a local server is over in well under a millisecond — far too fast to
+catch with `ss` (run `curl … &` then `ss` and you'll see *nothing*, because the
+connection already closed). So **hold one open by hand**: bash can open a raw TCP
+socket on a file descriptor and just sit on it.
+
+```bash
+exec 3<>/dev/tcp/127.0.0.1/8000    # open a connection on fd 3 and HOLD it
+ss -tnp | grep 8000                # now it's alive and there to see
+```
 
 ```text
 State  Recv-Q  Send-Q  Local Address:Port  Peer Address:Port  Process
 ESTAB  0       0         127.0.0.1:8000      127.0.0.1:51834   users:(("python3",...))
-ESTAB  0       0         127.0.0.1:51834     127.0.0.1:8000    users:(("curl",...))
+ESTAB  0       0         127.0.0.1:51834     127.0.0.1:8000    users:(("bash",...))
 ```
+
+Release it with `exec 3>&-` when you're done looking.
 
 Every TCP connection is identified by exactly four values — the **4-tuple**:
 

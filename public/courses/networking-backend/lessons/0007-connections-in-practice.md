@@ -11,17 +11,17 @@ related:
 
 You told me Unit 2 landed only *roughly* — you got the big idea (`FIN` vs `RST`
 vs silence) but the terminal felt awkward and the practical part didn't stick.
-Fair. That usually means the commands were written for one machine and yours
-behaves differently. So this lesson adds **no new concepts** — it re-walks the
-three Unit 2 moves with your hands on the keys, on a *real* service, with
-commands that match **your** OS. Do it, don't read it.
+That wasn't you: two of those exercises were simply **broken** — one asked you to
+watch a connection that closes faster than you can look, the other waited for a
+timeout that an unroutable address can never produce. This lesson fixes both and
+adds **no new concepts** — it re-walks the three Unit 2 moves, hands on the keys,
+against a *real* service, in a way that actually works. Do it, don't read it.
 
-:::warn{title="Output differs by OS — that was probably the whole problem"}
-There is no single "correct" output. Tool names, columns, and even whether a
-command exists depend on your OS. `ss` is Linux-only; macOS uses `lsof`. If a
-Unit 2 command "didn't work," it likely wasn't your fault — it was Linux-only.
-Use the row for your system below, and read output for its **shape**, never for
-byte-for-byte match.
+:::warn{title="Read output for its shape, not byte-for-byte"}
+Your exact output — IPs, ports, columns, spacing — will differ from what's
+printed here, and that's fine; you're reading for *structure*, not an exact
+match. (Tools differ across systems too: `ss` is Linux/WSL — yours — while macOS
+uses `lsof`; both are in the table below.)
 :::
 
 ## Move 1 — what's listening, what's connected (on something real)
@@ -35,9 +35,20 @@ anything. Then ask the box the two questions that open every connection debug:
 | What's **connected**? | `ss -tnp` | `lsof -nP -iTCP -sTCP:ESTABLISHED` |
 | fallback (either OS) | `netstat -tlnp` | `netstat -an -p tcp` |
 
-Find your service in the `LISTEN` output, then make a request to it (a `curl`, or
-just load it) and re-run the connected view. You'll see the same port on two
-lines — the **4-tuple** in action:
+Find your service in the `LISTEN` output. Now catch a *live* connection — and
+here's the trap that bit you in Unit 2: a normal request finishes in under a
+millisecond, so `curl … &` then `ss` shows **nothing**, because the connection
+already closed. So hold one open by hand (bash opens a raw TCP socket on a file
+descriptor and sits on it):
+
+```bash
+exec 3<>/dev/tcp/127.0.0.1/<PORT>   # open a connection and HOLD it
+ss -tnp | grep <PORT>               # now the live connection is there to see
+exec 3>&-                           # release it when you're done looking
+```
+
+You'll see `<PORT>` on two lines — same port, two directions — the **4-tuple**
+in action:
 
 :::jargon
 LISTEN :: A process parked on a port, waiting. Answers "who *accepts* connections here?"
@@ -67,21 +78,55 @@ absence of information — the only thing you learned is that the far side never
 spoke. This is the single most useful reflex on an incident call.
 :::
 
-## Practice — make all three happen, on purpose
+## Practice — produce each signature on purpose (this is where Unit 2 broke)
 
-Run these and name each outcome *before* reading the exit code:
+**refused** — the easy one. Point `curl` at a local port with nothing on it
+(confirm it's free with `ss -tlnp` first):
 
 ```bash
-curl -v http://127.0.0.1:9/            # port 9: almost certainly nothing there
-curl -v --connect-timeout 3 http://192.0.2.1/   # 192.0.2.0/24 is a test black hole
+curl -v http://127.0.0.1:9999/
+# → curl: (7) Failed to connect ... Connection refused    (an RST came back)
 ```
 
-:::warn{title="If the second one fails instantly instead of hanging — good, notice that"}
-Depending on your network, the black-hole address may time out (silence, exit
-`28`) *or* come back fast with "No route to host" (the network answered, exit
-`7`). **Both are correct** — and telling them apart is the whole skill. Don't
-expect a fixed result; read the message and the exit code and name the mechanism.
-This is exactly the "didn't work as expected" trap, turned into the lesson.
+**unreachable** — this is what you actually saw with the "black hole", and it
+was *correct*. An address with no route answers **fast**, because your own kernel
+says "I can't get there":
+
+```bash
+curl -v --connect-timeout 3 http://192.0.2.1/
+# → curl: (7) ... Network is unreachable / No route to host    (in a few ms)
+```
+
+:::warn{title="Exit 7 is not one thing — read the message, not the number"}
+Both commands above give exit `7`. Exit `7` does **not** mean "refused"; it means
+"the connection didn't open", and the *message* says which flavour: `Connection
+refused` (an RST — host up, port closed) versus `Network is unreachable` /
+`No route to host` (the network answered that it can't route there). That's why
+your black-hole test returned in 5 ms with exit 7 instead of hanging — an
+unroutable address **can't** give you silence, so it can't give you a timeout.
+Nothing was broken; the exercise was.
+:::
+
+**timeout** — the one you *can't* fake with a bad address, because a timeout is
+**silence**, and silence means a packet was *dropped* — your own kernel won't
+silently drop its outbound packets, it errors fast. To see a real timeout
+locally you install the drop yourself with a firewall rule (fully reversible):
+
+```bash
+python3 -m http.server 8080 &                         # a real listener
+sudo iptables -I OUTPUT -p tcp --dport 8080 -j DROP   # eat the SYNs silently
+curl -v --connect-timeout 3 http://127.0.0.1:8080/    # now it HANGS, then (28)
+sudo iptables -D OUTPUT -p tcp --dport 8080 -j DROP   # undo it
+kill %1
+```
+
+:::note{title="This is the whole point, not a party trick"}
+You just made the course's central fork happen with your own hands: same
+destination, but a **DROP** rule (silence → `timeout`, exit 28) versus a **closed
+port** (an RST → `refused`, exit 7). "Timeout ⇒ something is *dropping* packets —
+a firewall, a routing black hole, a dead host" is now something you *produced*,
+not a claim on a page. (WSL2 runs a real kernel, so `iptables` works; if it
+errors, try `sudo iptables-legacy`.)
 :::
 
 :::quiz
