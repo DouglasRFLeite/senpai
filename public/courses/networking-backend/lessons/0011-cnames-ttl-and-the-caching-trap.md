@@ -2,7 +2,7 @@
 title: CNAMEs, TTL, and the Caching Trap
 unit: Unit 3
 related:
-  - 0009-nxdomain-servfail-or-silence
+  - 0010-nxdomain-servfail-or-silence
   - reference/dns
   - reference/glossary
 ---

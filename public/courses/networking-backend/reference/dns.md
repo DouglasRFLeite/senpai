@@ -65,4 +65,4 @@ TXT / SRV :: `TXT` = free-form text (SPF, verification). `SRV` = service locatio
   `localhost` means the pod itself.
 
 _Taught in Unit 3 (lessons
-[0007](/courses/networking-backend/lessons/0007-read-a-dig-answer)–[0010](/courses/networking-backend/lessons/0010-cnames-ttl-and-the-caching-trap))._
+[0008](/courses/networking-backend/lessons/0008-read-a-dig-answer)–[0011](/courses/networking-backend/lessons/0011-cnames-ttl-and-the-caching-trap))._

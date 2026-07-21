@@ -2,8 +2,8 @@
 title: Which Resolver Answered?
 unit: Unit 3
 related:
-  - 0007-read-a-dig-answer
-  - 0009-nxdomain-servfail-or-silence
+  - 0008-read-a-dig-answer
+  - 0010-nxdomain-servfail-or-silence
   - reference/dns
 ---
 

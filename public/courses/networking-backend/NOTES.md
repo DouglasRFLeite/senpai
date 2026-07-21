@@ -20,9 +20,18 @@ Teaching preferences observed:
 
 Environment (2026-07-21, from Unit 2 feedback — see learning-record 0002):
 
-- The dev container was missing `dig`/`ss`/`tcpdump`/`nc`, which broke Unit 2's
-  run-it-yourself steps ("tools did not work as expected"). `Dockerfile.dev` now
-  installs `dnsutils iproute2 tcpdump netcat-openbsd`; **needs a rebuild**
-  (`docker compose build dev`) to take effect.
-- Every tool-first lesson must carry: an install line, the **expected output**,
-  and a no-install fallback (e.g. `getent hosts`). Non-negotiable from here.
+- Douglas runs run-it-yourself commands on his **host, not the dev container**.
+  The Unit 2 awkwardness was *environment mismatch* (lessons hard-coded one
+  Linux environment's tools/output), NOT missing tools. My first diagnosis was
+  wrong; corrected in learning-record 0002.
+- **Lessons must be environment-honest:** no byte-for-byte output promises;
+  give per-OS variants (Linux `ss` / macOS `lsof`, install notes per distro);
+  teach reading for shape and mechanism. Non-negotiable from here.
+- **His actual OS is still unknown** — asked, not yet answered. Assume cross-OS
+  (esp. before Units 6/7/9 tooling: `tcpdump`, `openssl s_client`).
+- **Don't push the Question Bank as "the answer."** His goal is practical
+  debugging; lead with run-it-yourself on real systems, the design-review
+  thread, the capstone, and communities. The Bank is offered, not pushed.
+- (Separately: `Dockerfile.dev` was also missing `dnsutils iproute2 tcpdump
+  netcat-openbsd` — added, needs `docker compose build dev` — but this was a
+  latent container gap, not Douglas's issue.)

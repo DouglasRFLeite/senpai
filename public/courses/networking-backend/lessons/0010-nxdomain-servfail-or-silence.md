@@ -2,8 +2,8 @@
 title: NXDOMAIN, SERVFAIL, or Silence
 unit: Unit 3
 related:
-  - 0008-which-resolver-answered
-  - 0010-cnames-ttl-and-the-caching-trap
+  - 0009-which-resolver-answered
+  - 0011-cnames-ttl-and-the-caching-trap
   - reference/dns
   - reference/failure-alphabet
 ---

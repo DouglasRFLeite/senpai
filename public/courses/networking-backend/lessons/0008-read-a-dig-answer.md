@@ -2,7 +2,7 @@
 title: Read a `dig` Answer
 unit: Unit 3
 related:
-  - 0008-which-resolver-answered
+  - 0009-which-resolver-answered
   - reference/dns
   - reference/triage-ladder
 ---
@@ -12,11 +12,12 @@ answers it. But `dig` prints a wall of text, and only four parts of it matter on
 call. Learn to read those four, and you can read any answer `dig` ever gives
 you. First, make sure the tool is even there:
 
-:::warn{title="Install the tool before you fight the bug"}
-The dev container ships lean. If `dig` isn't found, install it once —
-`sudo apt-get update && sudo apt-get install -y dnsutils` — then carry on. No
-sudo and no package to install? Skip to the `getent` note at the bottom; you can
-still do rung 1, just with less detail.
+:::warn{title="`dig` output varies by OS — read the shape, not the exact bytes"}
+Your output will differ from what's printed here (different IP, TTL, resolver,
+spacing) and that's fine — you're reading for *structure*. If `dig` isn't found:
+Debian/Ubuntu `sudo apt-get install -y dnsutils`, RHEL/Fedora
+`sudo dnf install bind-utils`, macOS usually ships it (else `brew install bind`).
+No `dig` at all? Use the OS fallback in the last note — every OS has one.
 :::
 
 ```bash
@@ -53,11 +54,12 @@ run the full `dig`: the `status` and `SERVER` lines are where the diagnosis
 lives, and `+short` throws them away.
 :::
 
-:::note{title="No `dig`? `getent` is always there"}
-`getent hosts example.com` uses the exact resolver path your *applications* use
-(glibc), and it's built into every Linux box — nothing to install. It prints the
-IP and name, no more. It answers "does the name resolve for my app?" but not
-"who answered?" or "what's the TTL?" — so it's a fallback, not a replacement.
+:::note{title="No `dig`? Use your OS's app-path lookup"}
+On Linux, `getent hosts example.com` resolves the name exactly the way your
+*applications* do (glibc) — built in, nothing to install. On macOS the
+equivalent is `dscacheutil -q host -a name example.com`. Both print just the
+IP(s): they answer "does it resolve for my app?" but not "who answered?" or
+"what's the TTL?" — a fallback, not a replacement for `dig`.
 :::
 
 :::quiz
