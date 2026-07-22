@@ -2,6 +2,7 @@ FROM node:22-bookworm
 
 RUN apt-get update && apt-get install -y \
     jq lsof socat postgresql-client ripgrep git curl ca-certificates openssh-client \
+    dnsutils iproute2 tcpdump netcat-openbsd \
  && rm -rf /var/lib/apt/lists/*
 
 # GitHub CLI
